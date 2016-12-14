@@ -11,7 +11,7 @@
         maxDate: //要求是Date对象   日历选择的最大日期
         minDate: //要求是Date对象   日历选择的最小日期
         start:   //要求是Date对象   日历开始的选择的日期
-        onChoose:null   //要求是function对象  日期选中后的回调函数
+        onChoose:null   //要求是function对象  日期选中后的回调函数，接受一个参数dates，dates是当前选中的日期
         showToday:true  //默认显示今天   是否显示今天
         showClear:true  //默认显示清除   是否显示清除
         showTime:true   //默认显示时间   是否显示时间
