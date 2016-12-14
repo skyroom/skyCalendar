@@ -1,0 +1,217 @@
+.text-muted {
+	color:#aaa;
+}
+.sky_calendar_con {
+	position: relative;
+	margin-left:30px;
+}
+.sky_calendar_con.sky_calendar_con_isShow {
+	z-index: 1000;
+}
+.sky_calendar,.sky_calendar * {
+    box-sizing:border-box;
+    -moz-box-sizing:border-box; /* Firefox */
+    -webkit-box-sizing:border-box; /* Safari */
+}
+.sky_calendar {
+    width:295px;
+    padding: 4px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    position: absolute;
+    top:100%;
+    background-color: #fff;
+}
+.sky_calendar td {
+	padding: 2px;
+}
+.sky_calendar tbody td button{
+	font-weight: 700;
+	font-family: Microsoft YaHei;
+}
+.sky_calendar tbody td .btn-default[disabled] {
+	font-weight: normal;
+}
+/*年份选择区域样式开始*/
+.sky_calendar .display-year {
+	position: relative;
+}
+.sky_calendar .display-year-table {
+	position: absolute;
+	top:34px;
+	background-color:#fff;
+	left:-36px;
+	border: 1px solid #C6C6C6;
+	box-shadow:2px 2px 5px rgba(0,0,0,.1);
+	z-index: 10000;
+}
+.sky_calendar .display-year-table tbody .btn-sm {
+	padding: 5px 8px;
+}
+.sky_calendar .display-year-table thead .btn,.sky_calendar .display-year-table tfoot .btn {
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
+/*年份选择区域样式结束*/
+
+
+
+/*月份选择区域样式开始*/
+.sky_calendar .display-month {
+	position: relative;
+	padding:5px 2px;
+}
+.sky_calendar .display-month-table {
+	position: absolute;
+	top:34px;
+	background-color:#fff;
+	right:-37px;
+	border: 1px solid #C6C6C6;
+	box-shadow:2px 2px 5px rgba(0,0,0,.1);
+	z-index: 10000;
+}
+.sky_calendar .display-month-table tbody .btn-sm {
+	padding: 5px 12px;
+}
+.sky_calendar .display-month-table thead .btn,.sky_calendar .display-month-table tfoot .btn {
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
+/*月份选择区域样式结束*/
+
+
+/*时间选择区域样式开始*/
+.sky_calendar .sky_calendar_time_btn>span:first-child {
+		margin-left: 0;
+		position: relative;
+		float: left;
+		color:#333;
+		background-color: #fff;
+		display: inline-block;
+		padding: 6px 12px;
+		margin-bottom: 0;
+		font-size: 14px;
+		font-weight: 700;
+		line-height: 1.42857143;
+		text-align: center;
+		vertical-align: middle;
+		border:1px solid transparent;
+		border-radius: 4px;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+		border-color: #ccc;
+		border-right: none;
+	}
+	
+.sky_calendar .sky_calendar_time_btn>span:first-child+span+button{
+		border-right: none;
+		position: relative;
+	}
+.sky_calendar .sky_calendar_time_btn>span:first-child+span {
+		display: block;
+		position: absolute;
+		top:6px;
+		bottom:0;
+		right:37px;
+		height:2px;
+		line-height: 1.42857143;
+		text-align: center;
+		vertical-align: middle;
+		font-weight: 700;
+		z-index: 100;
+	}
+.sky_calendar .sky_calendar_time_btn>span:first-child+span+button+button{
+		border-left: none;
+		border-top-right-radius: 4px!important;
+		border-bottom-right-radius: 4px!important;
+	}
+/*小时开始*/
+.sky_calendar .display-hour-table>div:first-child {
+	background-color: rgba(0,0,0,.8);
+	color:#fff;
+}
+.sky_calendar .display-hour-table>div:first-child span {
+	position: absolute;
+	top:0px;
+	right:10px;
+	font-size: 16px;
+	cursor: pointer;
+	opacity: .6;
+}
+.sky_calendar .display-hour-table>div:first-child span:hover {
+	opacity: 1;
+}
+.sky_calendar .display-hour-table>div:first-child+div {
+	padding: 9px 8px;
+}
+.sky_calendar .display-hour-table {
+	background-color: #fff;
+	z-index: 10000;
+	position: absolute;
+	bottom:33px;
+	left:0;
+	border: 1px solid #C6C6C6;
+	/*box-shadow:2px 2px 5px rgba(0,0,0,.1);*/
+}
+.sky_calendar .display-hour-table td {
+	min-width: 31px;
+}
+.sky_calendar .display-hour-table td button {
+	padding: 4px 6px; 
+}
+.sky_calendar .display-hour-table>table>thead {
+	background-color: #ddd;
+}
+/*小时结束*/
+
+/*分钟开始*/
+.sky_calendar .display-minute-table>div:first-child {
+	background-color: rgba(0,0,0,.8);
+	color:#fff;
+	position: relative;
+}
+.sky_calendar .display-minute-table>div:first-child span {
+	position: absolute;
+	top:0px;
+	right:10px;
+	font-size: 16px;
+	cursor: pointer;
+	opacity: .6;
+}
+.sky_calendar .display-minute-table>div:first-child span:hover {
+	opacity: 1;
+}
+.sky_calendar .display-minute-table>div:first-child+div {
+	padding-left:5px;
+	padding-right:6px;
+	padding-top: 9px;
+	padding-bottom: 9px;
+}
+.sky_calendar .display-minute-table {
+	background-color: #fff;
+	z-index: 10000;
+	position: absolute;
+	bottom:33px;
+	left:0;
+	border: 1px solid #C6C6C6;
+	/*box-shadow:2px 2px 5px rgba(0,0,0,.1);*/
+}
+.sky_calendar .display-minute-table td button {
+	min-width: 23px;
+	padding: 4px 3px; 
+}
+.sky_calendar .display-minute-table>table>thead {
+	background-color: #ddd;
+}
+
+
+/*分钟结束*/
+
+/*时间选择区域样式结束*/
+
+/*按钮组样式开始*/
+.sky_calendar>table>tfoot>tr>td>div:last-child {
+	padding-top: 2px;
+	display: inline-block;
+}
+/*按钮组样式结束*/
