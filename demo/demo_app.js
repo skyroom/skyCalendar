@@ -29,9 +29,9 @@
 var app = angular.module('myApp', ['ng','sky.calendar']);
 app.controller("testController", function($rootScope, $scope) {
     $scope.options={
-        maxDate: new Date("2000-1-1 12:10"),
+        //maxDate: new Date("2000-1-1 12:10"),
         minDate: new Date("1995-5-6 11:10"),
-        //start:new Date("2000-1"),
+        start:new Date(),
         showToday: true,
         showTime:true,
         showClear:true,
