@@ -18,11 +18,11 @@ angularJs版本的datetimepicker
 #四：使用
     1.在你的module中引入sky.calendar.js.
     2.在html中引入日历指令
-    	```javascript
+    	
     	<sky-calendar options="options"></sky-calendar>
-    	```
+    	
     3.第2条引号中的options就是你在控制器中设置的日历参数。
-    	```javascript
+    	
     		$scope.options={
     			maxDate:new Date(),
     			minDate:new Date("2000-1-1 11:30"),
@@ -30,10 +30,10 @@ angularJs版本的datetimepicker
     				alert(dates);
     			}
     		}
-    	```
+    	
     4.日历选中的日期是第2条的options.calendarValue
-    	```javascript
+    	
     		$scope.options.calendarValue;
-    	```
+    	
 #五：兼容性
     应该很差吧，我采用es6的拼接字符串方式。具体兼容性没有测试过。
