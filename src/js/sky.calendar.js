@@ -9,176 +9,173 @@ angular.module('sky.calendar', ['ng']).directive('skyCalendar', [function() {
         },
         replace: true,
         template: //
-    `<div class="sky_calendar_con" ng-class="{'sky_calendar_con_isShow':sobj.calendar.showSkyCalendar.canShow}">
-        <input type="text" ng-model="options.calendarValue" ng-blur="sobj.calendar.inputBlur($event)" ng-focus="sobj.calendar.inputFocus()" ng-click="sobj.calendar.inputClick($event)"/>
-        <div class="sky_calendar" ng-show="sobj.calendar.showSkyCalendar.canShow" ng-click="sobj.calendar.hideAllPanel()" ng-mouseup="sobj.calendar.calendarMouseup()" ng-mousedown="sobj.calendar.calendarMousedown()">
-            <table>
-                <thead>
-                    <tr>
-                        <th class="text-center">
-                            <button type="button" class="btn btn-default btn-sm" tabindex="-1" ng-click="sobj.calendar.showDateTbody({year:sobj.calendar.displayDate.year-1,month:sobj.calendar.displayDate.month,date:sobj.calendar.displayDate.date,hour:sobj.calendar.displayDate.hour,minute:sobj.calendar.displayDate.minute})" ng-disabled="sobj.calendar.canDisabledPrevYear">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                            </button>
-                        </th>
-                        <th colspan="2" class="text-center display-year">
-                            <button type="button" class="btn btn-default btn-sm" tabindex="-1" style="width:100%;" ng-click="sobj.calendar.showYearPanel($event,sobj.calendar.displayDate.year)">
-                                <strong ng-bind="sobj.calendar.displayDate.year"></strong>
-                                <strong>年</strong>
-                            </button>
-                            <div class="display-year-table" ng-show="sobj.calendar.panel.yearPanel" ng-click="sobj.calendar.stopBubble($event)">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th colspan="3" class="text-center">
-                                                <button ng-disabled="sobj.calendar.canDisabledPrevYearPanel" type="button" class="btn btn-default btn-sm" tabindex="-1" style="width:100%;" ng-click="sobj.calendar.showPrevOrNextYearPanel(-1)">
-                                                    <span class="glyphicon glyphicon-chevron-up"></span>
-                                                </button>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="yearRows in sobj.calendar.yearTbodyArray">
-                                            <td class="text-center" ng-repeat="yearCols in yearRows track by $index">  
-                                                <button type="button" style="width:100%;" class="btn btn-sm" ng-class="{'btn-default':yearCols!=sobj.calendar.displayDate.year,'btn-info':yearCols==sobj.calendar.displayDate.year}"
-                                                ng-disabled="yearCols>sobj.calendar.options.maxDate.year||yearCols<sobj.calendar.options.minDate.year" ng-click="sobj.calendar.selectYear({year:yearCols,month:sobj.calendar.displayDate.month})">
-                                                    <span ng-bind="yearCols"></span>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th colspan="3" class="text-center">
-                                                <button ng-disabled="sobj.calendar.canDisabledNextYearPanel" type="button" class="btn btn-default btn-sm" tabindex="-1" style="width:100%;" ng-click="sobj.calendar.showPrevOrNextYearPanel(1)">
-                                                    <span class="glyphicon glyphicon-chevron-down"></span>
-                                                </button>
-                                            </th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                        </th>
-                        <th class="text-center">
-                            <button type="button" class="btn btn-default btn-sm" tabindex="-1" ng-click="sobj.calendar.showDateTbody({year:sobj.calendar.displayDate.year+1,month:sobj.calendar.displayDate.month,date:sobj.calendar.displayDate.date,hour:sobj.calendar.displayDate.hour,minute:sobj.calendar.displayDate.minute})" ng-disabled="sobj.calendar.canDisabledNextYear">
-                                <i class="glyphicon glyphicon-chevron-right"></i>
-                            </button>
-                        </th>
-                        
-                        <th class="text-center">
-                            <button type="button" class="btn btn-default btn-sm" tabindex="-1" ng-click="sobj.calendar.showDateTbody({year:sobj.calendar.displayDate.year,month:sobj.calendar.displayDate.month-1,date:sobj.calendar.displayDate.date,hour:sobj.calendar.displayDate.hour,minute:sobj.calendar.displayDate.minute})" ng-disabled="sobj.calendar.canDisabledPrevMonth">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                            </button>
-                        </th>
-                        <th class="text-center display-month">
-                            <button type="button" class="btn btn-default btn-sm display-month" tabindex="-1" style="width:100%;" ng-click="sobj.calendar.showMonthPanel($event,sobj.calendar.displayDate)">
-                                <strong ng-bind="sobj.calendar.displayDate.month"></strong>
-                                <strong>月</strong>
-                            </button>
-                            <div class="display-month-table" ng-click="sobj.calendar.stopBubble($event)" ng-show="sobj.calendar.panel.monthPanel">
-                                <table>
-                                    <tbody>
-                                        <tr ng-repeat="monthRows in sobj.calendar.monthTbodyArray">
-                                            <td class="text-center" ng-repeat="monthCols in monthRows track by $index">  
-                                                <button type="button" style="width:100%;" class="btn btn-sm" ng-class="{'btn-default':monthCols.month!=sobj.calendar.displayDate.month,'btn-info':monthCols.month==sobj.calendar.displayDate.month}"
-                                                ng-disabled="(monthCols.year==sobj.calendar.options.maxDate.year&&monthCols.month>sobj.calendar.options.maxDate.month)||(monthCols.year==sobj.calendar.options.minDate.year&&monthCols.month<sobj.calendar.options.minDate.month)" ng-click="sobj.calendar.selectMonth({year:monthCols.year,month:monthCols.month})">
-                                                    <span ng-bind="monthCols.month"></span><span>月</span>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </th>
-                        <th class="text-center">
-                            <button type="button" class="btn btn-default btn-sm" tabindex="-1" ng-click="sobj.calendar.showDateTbody({year:sobj.calendar.displayDate.year,month:sobj.calendar.displayDate.month+1,date:sobj.calendar.displayDate.date,hour:sobj.calendar.displayDate.hour,minute:sobj.calendar.displayDate.minute})" ng-disabled="sobj.calendar.canDisabledNextMonth">
-                                <i class="glyphicon glyphicon-chevron-right"></i>
-                            </button>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th class="text-center"><small aria-label="星期六" class="ng-binding">周日</small>
-                        </th>
-                        <th  class="text-center"><small aria-label="星期六" class="ng-binding">周一</small>
-                        </th>
-                        <th  class="text-center"><small aria-label="星期六" class="ng-binding">周二</small>
-                        </th>
-                        <th class="text-center"><small aria-label="星期六" class="ng-binding">周三</small>
-                        </th>
-                        <th  class="text-center"><small aria-label="星期六" class="ng-binding">周四</small>
-                        </th>
-                        <th  class="text-center"><small aria-label="星期六" class="ng-binding">周五</small>
-                        </th>
-                        <th class="text-center"><small aria-label="星期六" class="ng-binding">周六</small>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="dateRows in sobj.calendar.dateTbodyArray">
-                        <td class="text-center" ng-repeat="dateCols in dateRows track by $index">  <!---->
-                            <button type="button" style="width:100%;" class="btn btn-default btn-sm" ng-class="{'btn-default':!dateCols.current,'btn-info':dateCols.current}" ng-click="sobj.calendar.selectDate(dateCols)" ng-disabled="dateCols.year==sobj.calendar.options.maxDate.year&&dateCols.month==sobj.calendar.options.maxDate.month&&dateCols.date>sobj.calendar.options.maxDate.date||dateCols.year==sobj.calendar.options.minDate.year&&dateCols.month==sobj.calendar.options.minDate.month&&dateCols.date<sobj.calendar.options.minDate.date||dateCols.year==sobj.calendar.options.maxDate.year&&dateCols.month>sobj.calendar.options.maxDate.month||dateCols.year==sobj.calendar.options.minDate.year&&dateCols.month<sobj.calendar.options.minDate.month||dateCols.year<sobj.calendar.options.minDate.year||dateCols.year>sobj.calendar.options.maxDate.year">
-                                <span ng-bind="dateCols.date" ng-class="{'text-muted':dateCols.month!=sobj.calendar.displayDate.month}"></span>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="7">
-                            <div class="btn-group sky_calendar_time_btn" role="group" ng-show="sobj.calendar.options.showTime">
-                                <span>时间</span>
-                                <span>:</span>
-                                <button type="button" class="btn btn-default" ng-click="sobj.calendar.showHourPanel($event,sobj.calendar.displayDate)" ng-bind="sobj.calendar.displayDate.hour"></button>
-                                <button type="button" class="btn btn-default" ng-bind="sobj.calendar.displayDate.minute" ng-click="sobj.calendar.showMinutePanel($event,sobj.calendar.displayDate)"></button>
-                                <div class="display-hour-table" ng-show="sobj.calendar.panel.hourPanel" ng-click="sobj.calendar.stopBubble($event)">
-                                    <div class="text-center">
-                                        小时
-                                        <span class="pull-right" ng-click="sobj.calendar.panel.hourPanel=!sobj.calendar.panel.hourPanel">&times;</span>
-                                    </div>
-                                    <div>
-                                        <table>
-                                        <tbody>
-                                            <tr ng-repeat="hourRows in sobj.calendar.hourTbodyArray">
-                                                <td class="text-center" ng-repeat="hourCols in hourRows">  
-                                                    <button type="button" style="width:100%;" class="btn btn-sm" ng-class="{'btn-default':!(hourCols.hour==sobj.calendar.displayDate.hour),'btn-info':hourCols.hour==sobj.calendar.displayDate.hour}" ng-disabled="sobj.calendar.isHourDisabled(hourCols)" ng-click="sobj.calendar.selectHour(hourCols)">
-                                                        <span ng-bind="hourCols.hour"></span>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    </div>
-                                </div>
-                                <div class="display-minute-table" ng-show="sobj.calendar.panel.minutePanel" ng-click="sobj.calendar.stopBubble($event)">
-                                    <div class="text-center">
-                                        分钟
-                                        <span class="pull-right" ng-click="sobj.calendar.panel.minutePanel=!sobj.calendar.panel.minutePanel">&times;</span>
-                                    </div>
-                                    <div>
-                                        <table>
-                                        <tbody>
-                                            <tr ng-repeat="minuteRows in sobj.calendar.minuteTbodyArray">
-                                                <td class="text-center" ng-repeat="minuteCols in minuteRows">  
-                                                    <button type="button" style="width:100%;" class="btn btn-sm" ng-class="{'btn-default':!(minuteCols.minute==sobj.calendar.displayDate.minute),'btn-info':minuteCols.minute==sobj.calendar.displayDate.minute}" ng-disabled="sobj.calendar.isMinuteDisabled(minuteCols)" ng-click="sobj.calendar.selectMinute(minuteCols)">
-                                                        <span ng-bind="minuteCols.minute"></span>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pull-right">
-                                <button type="button" class="btn btn-sm btn-success pull-right" ng-click="sobj.calendar.showSkyCalendar.canShow=false">关闭</button>
-                                <button type="button" class="btn btn-sm btn-info pull-right" ng-show="sobj.calendar.options.showToday" ng-click="sobj.calendar.showToday()">今天</button>
-                                <button type="button" class="btn btn-sm btn-warning pull-right" ng-show="sobj.calendar.options.showClear" ng-click="sobj.calendar.clearInput()">清除</button>
-                            </div>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-    </div>`,
+    '<div class="sky_calendar_con" ng-class="{\'sky_calendar_con_isShow\':sobj.calendar.showSkyCalendar.canShow}">'+
+        '<input type="text" ng-model="options.calendarValue" ng-blur="sobj.calendar.inputBlur($event)" ng-focus="sobj.calendar.inputFocus()" ng-click="sobj.calendar.inputClick($event)"/>'+
+        '<div class="sky_calendar" ng-show="sobj.calendar.showSkyCalendar.canShow" ng-click="sobj.calendar.hideAllPanel()" ng-mouseup="sobj.calendar.calendarMouseup()" ng-mousedown="sobj.calendar.calendarMousedown()">'+
+            '<table>'+
+                '<thead>'+
+                    '<tr>'+
+                        '<th class="text-center">'+
+                            '<button type="button" class="btn btn-default btn-sm" tabindex="-1" ng-click="sobj.calendar.showDateTbody({year:sobj.calendar.displayDate.year-1,month:sobj.calendar.displayDate.month,date:sobj.calendar.displayDate.date,hour:sobj.calendar.displayDate.hour,minute:sobj.calendar.displayDate.minute})" ng-disabled="sobj.calendar.canDisabledPrevYear">'+
+                                '<span class="glyphicon glyphicon-chevron-left"></span>'+
+                            '</button>'+
+                        '</th>'+
+                        '<th colspan="2" class="text-center display-year">'+
+                            '<button type="button" class="btn btn-default btn-sm" tabindex="-1" style="width:100%;" ng-click="sobj.calendar.showYearPanel($event,sobj.calendar.displayDate.year)">'+
+                                '<strong ng-bind="sobj.calendar.displayDate.year"></strong>'+
+                                '<strong>年</strong>'+
+                            '</button>'+
+                            '<div class="display-year-table" ng-show="sobj.calendar.panel.yearPanel" ng-click="sobj.calendar.stopBubble($event)">'+
+                                '<table>'+
+                                    '<thead>'+
+                                        '<tr>'+
+                                            '<th colspan="3" class="text-center">'+
+                                                '<button ng-disabled="sobj.calendar.canDisabledPrevYearPanel" type="button" class="btn btn-default btn-sm" tabindex="-1" style="width:100%;" ng-click="sobj.calendar.showPrevOrNextYearPanel(-1)">'+
+                                                    '<span class="glyphicon glyphicon-chevron-up"></span>'+
+                                                '</button>'+
+                                            '</th>'+
+                                        '</tr>'+
+                                    '</thead>'+
+                                    '<tbody>'+
+                                        '<tr ng-repeat="yearRows in sobj.calendar.yearTbodyArray">'+
+                                            '<td class="text-center" ng-repeat="yearCols in yearRows track by $index">'+  
+                                                '<button type="button" style="width:100%;" class="btn btn-sm" ng-class="{\'btn-default\':yearCols!=sobj.calendar.displayDate.year,\'btn-info\':yearCols==sobj.calendar.displayDate.year}" ng-disabled="yearCols>sobj.calendar.options.maxDate.year||yearCols<sobj.calendar.options.minDate.year" ng-click="sobj.calendar.selectYear({year:yearCols,month:sobj.calendar.displayDate.month})">'+
+                                                    '<span ng-bind="yearCols"></span>'+
+                                                '</button>'+
+                                            '</td>'+
+                                        '</tr>'+
+                                    '</tbody>'+
+                                    '<tfoot>'+
+                                        '<tr>'+
+                                            '<th colspan="3" class="text-center">'+
+                                                '<button ng-disabled="sobj.calendar.canDisabledNextYearPanel" type="button" class="btn btn-default btn-sm" tabindex="-1" style="width:100%;" ng-click="sobj.calendar.showPrevOrNextYearPanel(1)">'+
+                                                    '<span class="glyphicon glyphicon-chevron-down"></span>'+
+                                                '</button>'+
+                                            '</th>'+
+                                        '</tr>'+
+                                    '</tfoot>'+
+                                '</table>'+
+                            '</div>'+
+                        '</th>'+
+                        '<th class="text-center">'+
+                            '<button type="button" class="btn btn-default btn-sm" tabindex="-1" ng-click="sobj.calendar.showDateTbody({year:sobj.calendar.displayDate.year+1,month:sobj.calendar.displayDate.month,date:sobj.calendar.displayDate.date,hour:sobj.calendar.displayDate.hour,minute:sobj.calendar.displayDate.minute})" ng-disabled="sobj.calendar.canDisabledNextYear">'+
+                                '<i class="glyphicon glyphicon-chevron-right"></i>'+
+                            '</button>'+
+                        '</th>'+
+                        '<th class="text-center">'+
+                            '<button type="button" class="btn btn-default btn-sm" tabindex="-1" ng-click="sobj.calendar.showDateTbody({year:sobj.calendar.displayDate.year,month:sobj.calendar.displayDate.month-1,date:sobj.calendar.displayDate.date,hour:sobj.calendar.displayDate.hour,minute:sobj.calendar.displayDate.minute})" ng-disabled="sobj.calendar.canDisabledPrevMonth">'+
+                                '<span class="glyphicon glyphicon-chevron-left"></span>'+
+                            '</button>'+
+                        '</th>'+
+                        '<th class="text-center display-month">'+
+                            '<button type="button" class="btn btn-default btn-sm display-month" tabindex="-1" style="width:100%;" ng-click="sobj.calendar.showMonthPanel($event,sobj.calendar.displayDate)">'+
+                                '<strong ng-bind="sobj.calendar.displayDate.month"></strong>'+
+                                '<strong>月</strong>'+
+                            '</button>'+
+                            '<div class="display-month-table" ng-click="sobj.calendar.stopBubble($event)" ng-show="sobj.calendar.panel.monthPanel">'+
+                                '<table>'+
+                                    '<tbody>'+
+                                        '<tr ng-repeat="monthRows in sobj.calendar.monthTbodyArray">'+
+                                            '<td class="text-center" ng-repeat="monthCols in monthRows track by $index">'+  
+                                                '<button type="button" style="width:100%;" class="btn btn-sm" ng-class="{\'btn-default\':monthCols.month!=sobj.calendar.displayDate.month,\'btn-info\':monthCols.month==sobj.calendar.displayDate.month}" ng-disabled="(monthCols.year==sobj.calendar.options.maxDate.year&&monthCols.month>sobj.calendar.options.maxDate.month)||(monthCols.year==sobj.calendar.options.minDate.year&&monthCols.month<sobj.calendar.options.minDate.month)" ng-click="sobj.calendar.selectMonth({year:monthCols.year,month:monthCols.month})">'+
+                                                    '<span ng-bind="monthCols.month"></span><span>月</span>'+
+                                                '</button>'+
+                                            '</td>'+
+                                        '</tr>'+
+                                    '</tbody>'+
+                                '</table>'+
+                            '</div>'+
+                        '</th>'+
+                        '<th class="text-center">'+
+                            '<button type="button" class="btn btn-default btn-sm" tabindex="-1" ng-click="sobj.calendar.showDateTbody({year:sobj.calendar.displayDate.year,month:sobj.calendar.displayDate.month+1,date:sobj.calendar.displayDate.date,hour:sobj.calendar.displayDate.hour,minute:sobj.calendar.displayDate.minute})" ng-disabled="sobj.calendar.canDisabledNextMonth">'+
+                                '<i class="glyphicon glyphicon-chevron-right"></i>'+
+                            '</button>'+
+                        '</th>'+
+                    '</tr>'+
+                    '<tr>'+
+                        '<th class="text-center"><small aria-label="星期六" class="ng-binding">周日</small>'+
+                        '</th>'+
+                        '<th  class="text-center"><small aria-label="星期六" class="ng-binding">周一</small>'+
+                        '</th>'+
+                        '<th  class="text-center"><small aria-label="星期六" class="ng-binding">周二</small>'+
+                        '</th>'+
+                        '<th class="text-center"><small aria-label="星期六" class="ng-binding">周三</small>'+
+                        '</th>'+
+                        '<th  class="text-center"><small aria-label="星期六" class="ng-binding">周四</small>'+
+                        '</th>'+
+                        '<th  class="text-center"><small aria-label="星期六" class="ng-binding">周五</small>'+
+                        '</th>'+
+                        '<th class="text-center"><small aria-label="星期六" class="ng-binding">周六</small>'+
+                        '</th>'+
+                    '</tr>'+
+                '</thead>'+
+                '<tbody>'+
+                    '<tr ng-repeat="dateRows in sobj.calendar.dateTbodyArray">'+
+                        '<td class="text-center" ng-repeat="dateCols in dateRows track by $index">'+
+                            '<button type="button" style="width:100%;" class="btn btn-default btn-sm" ng-class="{\'btn-default\':!dateCols.current,\'btn-info\':dateCols.current}" ng-click="sobj.calendar.selectDate(dateCols)" ng-disabled="dateCols.year==sobj.calendar.options.maxDate.year&&dateCols.month==sobj.calendar.options.maxDate.month&&dateCols.date>sobj.calendar.options.maxDate.date||dateCols.year==sobj.calendar.options.minDate.year&&dateCols.month==sobj.calendar.options.minDate.month&&dateCols.date<sobj.calendar.options.minDate.date||dateCols.year==sobj.calendar.options.maxDate.year&&dateCols.month>sobj.calendar.options.maxDate.month||dateCols.year==sobj.calendar.options.minDate.year&&dateCols.month<sobj.calendar.options.minDate.month||dateCols.year<sobj.calendar.options.minDate.year||dateCols.year>sobj.calendar.options.maxDate.year">'+
+                                '<span ng-bind="dateCols.date" ng-class="{\'text-muted\':dateCols.month!=sobj.calendar.displayDate.month}"></span>'+
+                            '</button>'+
+                        '</td>'+
+                    '</tr>'+
+                '</tbody>'+
+                '<tfoot>'+
+                    '<tr>'+
+                        '<td colspan="7">'+
+                            '<div class="btn-group sky_calendar_time_btn" role="group" ng-show="sobj.calendar.options.showTime">'+
+                                '<span>时间</span>'+
+                                '<span>:</span>'+
+                                '<button type="button" class="btn btn-default" ng-click="sobj.calendar.showHourPanel($event,sobj.calendar.displayDate)" ng-bind="sobj.calendar.displayDate.hour"></button>'+
+                                '<button type="button" class="btn btn-default" ng-bind="sobj.calendar.displayDate.minute" ng-click="sobj.calendar.showMinutePanel($event,sobj.calendar.displayDate)"></button>'+
+                                '<div class="display-hour-table" ng-show="sobj.calendar.panel.hourPanel" ng-click="sobj.calendar.stopBubble($event)">'+
+                                    '<div class="text-center">'+
+                                        '小时'+
+                                        '<span class="pull-right" ng-click="sobj.calendar.panel.hourPanel=!sobj.calendar.panel.hourPanel">&times;</span>'+
+                                    '</div>'+
+                                    '<div>'+
+                                        '<table>'+
+                                        '<tbody>'+
+                                            '<tr ng-repeat="hourRows in sobj.calendar.hourTbodyArray">'+
+                                                '<td class="text-center" ng-repeat="hourCols in hourRows">'+  
+                                                    '<button type="button" style="width:100%;" class="btn btn-sm" ng-class="{\'btn-default\':!(hourCols.hour==sobj.calendar.displayDate.hour),\'btn-info\':hourCols.hour==sobj.calendar.displayDate.hour}" ng-disabled="sobj.calendar.isHourDisabled(hourCols)" ng-click="sobj.calendar.selectHour(hourCols)">'+
+                                                        '<span ng-bind="hourCols.hour"></span>'+
+                                                    '</button>'+
+                                                '</td>'+
+                                            '</tr>'+
+                                        '</tbody>'+
+                                    '</table>'+
+                                    '</div>'+
+                                '</div>'+
+                                '<div class="display-minute-table" ng-show="sobj.calendar.panel.minutePanel" ng-click="sobj.calendar.stopBubble($event)">'+
+                                    '<div class="text-center">'+
+                                        '分钟'+
+                                        '<span class="pull-right" ng-click="sobj.calendar.panel.minutePanel=!sobj.calendar.panel.minutePanel">&times;</span>'+
+                                    '</div>'+
+                                    '<div>'+
+                                        '<table>'+
+                                        '<tbody>'+
+                                            '<tr ng-repeat="minuteRows in sobj.calendar.minuteTbodyArray">'+
+                                                '<td class="text-center" ng-repeat="minuteCols in minuteRows">'+
+                                                    '<button type="button" style="width:100%;" class="btn btn-sm" ng-class="{\'btn-default\':!(minuteCols.minute==sobj.calendar.displayDate.minute),\'btn-info\':minuteCols.minute==sobj.calendar.displayDate.minute}" ng-disabled="sobj.calendar.isMinuteDisabled(minuteCols)" ng-click="sobj.calendar.selectMinute(minuteCols)">'+
+                                                        '<span ng-bind="minuteCols.minute"></span>'+
+                                                    '</button>'+
+                                                '</td>'+
+                                            '</tr>'+
+                                        '</tbody>'+
+                                    '</table>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'+
+                            '<div class="pull-right">'+
+                                '<button type="button" class="btn btn-sm btn-success pull-right" ng-click="sobj.calendar.showSkyCalendar.canShow=false">关闭</button>'+
+                                '<button type="button" class="btn btn-sm btn-info pull-right" ng-show="sobj.calendar.options.showToday" ng-click="sobj.calendar.showToday()">今天</button>'+
+                                '<button type="button" class="btn btn-sm btn-warning pull-right" ng-show="sobj.calendar.options.showClear" ng-click="sobj.calendar.clearInput()">清除</button>'+
+                            '</div>'+
+                        '</td>'+
+                    '</tr>'+
+                '</tfoot>'+
+            '</table>'+
+        '</div>'+
+    '</div>',
         link: function(scope, elem, attrs) {
             var sobj = scope.sobj = {};
 
@@ -332,16 +329,15 @@ angular.module('sky.calendar', ['ng']).directive('skyCalendar', [function() {
                     if(new Date().getTime()<new Date(me.options.minDate.year,me.options.minDate.month,me.options.minDate.date,me.options.minDate.hour,me.options.minDate.minute).getTime()){
                         me.options.showToday=false;
                     }
-
-
+                },
+                initDisplayDate:function(){
+                    var me=this;
                     //需要显示的日期
                     me.displayDate.year = me.options.start.year;
                     me.displayDate.month = me.options.start.month;
                     me.displayDate.date = me.options.start.date;
                     me.displayDate.hour = me.timeFormat(me.options.start.hour);
                     me.displayDate.minute = me.timeFormat(me.options.start.minute);
-                    me.showDateTbody(me.displayDate);
-
                 },
                 showDateTbody: function(obj) { //这里先将date中的数据放入一个一维数组，再转化成二维数组
                     var me = this;
@@ -769,15 +765,18 @@ angular.module('sky.calendar', ['ng']).directive('skyCalendar', [function() {
                 },
                 inputFocus:function(){
                     var me=this;
-                    //me.run(scope.options);
+                    me.run(scope.options);
                     me.showSkyCalendar.canShow=true;
                 },
                 inputClick:function(){
                     var me=this;
+                    me.run(scope.options);
                     me.showSkyCalendar.canShow=true;
                 }
             }
             sobj.calendar.run(scope.options);
+            sobj.calendar.initDisplayDate();
+            sobj.calendar.showDateTbody(sobj.calendar.displayDate);
             scope.options.calendarObject=sobj.calendar;
         }
     }

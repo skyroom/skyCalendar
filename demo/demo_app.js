@@ -43,7 +43,6 @@ app.controller("testController", function($rootScope, $scope) {
         minDate:new Date("1989-1-1 00:00"),
         onChoose:function(dates){   
             $scope.endoptions.minDate=new Date(dates);
-            $scope.endoptions.calendarObject.run($scope.endoptions);
         }
     };
     //结束时间
