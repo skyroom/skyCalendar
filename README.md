@@ -36,4 +36,4 @@ angularJs版本的datetimepicker
     		$scope.options.calendarValue;
     	
 #五：兼容性
-    应该很差吧，我采用es6的拼接字符串方式。具体兼容性没有测试过。
+    应该很差吧，具体兼容性没有测试过。
