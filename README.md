@@ -37,7 +37,7 @@
     		$scope.options.calendarValue;
     	
 # 五：兼容性
-    应该很差吧。具体兼容性没有测试过。
+    兼容angular1和bootstrap的都没有问题。
 
 # 六：联系作者
     QQ:243585525
